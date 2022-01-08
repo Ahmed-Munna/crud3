@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    if(!isset($_SESSION["login"])){
+        header('location:login.php');
+    }
     require('include/config.php');
     require('include/header.php');
     $query  = "SELECT * FROM user";
@@ -9,6 +13,12 @@
 
 <section>
         <div class="container">
+            <?php
+                if(isset($_SESSION["login_succ"])){ ?>
+                    <div class="alert alert-success" role="alert">
+                               <?= $_SESSION["login_succ"];?>
+                            </div>
+             <?php } unset($_SESSION["login_succ"]);?>
             <div class="row">
                 <h3 class="text-center">User list</h3>
                 <div class="col-2"></div>
@@ -52,6 +62,7 @@
                             <?php }?>
                         </tbody>
                         </table>
+                        <a class="btn btn-danger" href="logout.php">Logout</a>
                 </div>
                 <div class="col-2"></div>
             </div>
